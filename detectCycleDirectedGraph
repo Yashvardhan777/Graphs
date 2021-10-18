@@ -1,0 +1,30 @@
+class Solution:
+    
+    #Function to detect cycle in a directed graph.
+    def solve(self, V, adj, visited, revisited):
+        visited[V] = True
+        revisited[V] = True
+        for i in adj[V]:
+            if visited[i] == False:
+                if self.solve(i, adj, visited, revisited):
+                    return True
+                    
+            elif revisited[i]:
+                return True
+                
+                
+        revisited[V] = False
+        return False
+        
+    def isCyclic(self, V, adj):
+        # code here
+        visited = [False] * (V + 1)
+        revisited = [False] * (V + 1)
+        
+        for i in range(V):
+            if visited[i] == False:
+                if self.solve(i, adj, visited, revisited):
+                    return True
+                    
+                    
+        return False
